@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Color Palette Results</title>
+    <link rel="stylesheet" type="text/css" href="../static/styles.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background: linear-gradient(to right, #00a8ff, #c9e265);
+            background-size: 200% 200%;
+            animation: gradientAnimation 10s ease infinite;
+        }
+
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .color-box {
+            border: 2px solid #007bff;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .color-circle {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 10px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .color-info {
+            display: flex;
+            align-items: center;
+            margin-right: 10px;
+        }
+
+        .color-info span {
+            margin-right: 10px;
+        }
+
+        .copy-button {
+            margin-left: auto;
+        }
+
+        .back-button {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Top 10 Most Common Colors</h1>
+        <div class="row">
+            {% for color, count in colors.items() %}
+            <div class="col-md-6">
+                <div class="color-box">
+                    <div class="color-info">
+                        <div class="color-circle" style="background-color: {{ color }}"></div>
+                        <span>{{ color }}</span>
+                    </div>
+                    <button class="btn btn-primary copy-button" onclick="copyToClipboard('{{ color|trim('#') }}')">Copy</button>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <a href="/" class="btn btn-primary back-button">Go Back</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text);
+        }
+    </script>
+</body>
+
+</html>
+
